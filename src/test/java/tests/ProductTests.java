@@ -1,0 +1,85 @@
+package tests;
+
+import base.BaseTest;
+import clients.ProductClient;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import models.ProductRequest;
+import models.ProductResponse;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ProductTests extends BaseTest {
+
+    private final ProductClient client = new ProductClient();
+
+
+    // Pozitif
+    @Test
+    void getProductByIdPositiveTest() {
+        int productId = 1;
+
+        Response response = client.getProductById(productId);
+        JsonPath jsonPath = response.jsonPath();
+
+        assertNotNull(jsonPath, "Response null olamaz");
+        assertEquals(productId,jsonPath.getInt("id"),"ID eşleşmeli");
+        assertNotNull(jsonPath.getString("title"), "Title boş olamaz");
+        assertTrue(jsonPath.getFloat("price") > 0, "Price 0’dan büyük olmalı");
+        assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
+    }
+
+    // Negatif
+   // @Test
+    void getProductByIdNegativeTest() {
+        int productId = 99999;
+
+        Response response = client.getProductById(productId);
+        assertEquals(response.getStatusCode(),404,"Status code");
+
+    }
+
+
+    // Pozitif POST Testi (Yeni Product oluştur)
+
+    @Test
+    void createProductPositiveTest() {
+        ProductRequest request = new ProductRequest();
+
+
+        request.setTitle("Yeni Ürün");
+        request.setDescription("Test için oluşturuldu");
+        request.setPrice(1500);
+        request.setCategory("electronics");
+
+        Response response = client.createProduct(request);
+        JsonPath jsonPath= response.jsonPath();
+
+        assertNotNull(jsonPath, "Response null olamaz");
+        assertNotEquals(0,jsonPath.getInt("id"), "ID oluşturulmuş olmalı");
+        assertEquals(request.getTitle(),jsonPath.getString("title"), "Title eşleşmeli");
+        assertEquals(request.getPrice(), jsonPath.getFloat("price"), "Price eşleşmeli");
+        assertEquals(request.getCategory(), jsonPath.getString("category"), "Category eşleşmeli");
+    }
+
+    @Test
+    void getSchemeValidationTest(){
+        int productId = 1;
+
+        Response response = client.getProductForSchemaValidation(productId);
+        JsonPath jsonPath= response.jsonPath();
+
+        assertEquals(productId, jsonPath.getInt("id"), "ID eşleşmeli");
+        assertNotNull(jsonPath.getString("title"), "Title boş olamaz");
+        assertTrue(jsonPath.getFloat("price")> 0, "Price 0’dan büyük olmalı");
+        assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
+        assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
+
+
+
+    }
+
+    }
+
