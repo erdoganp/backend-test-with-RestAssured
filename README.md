@@ -1,8 +1,5 @@
 # Backend Test with RestAssured ![Java](https://img.shields.io/badge/Java-17-blue) ![Maven](https://img.shields.io/badge/Maven-3.9.1-red) ![Rest-Assured](https://img.shields.io/badge/Rest--Assured-5.4.0-green)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/erdoganp/backend-test-with-RestAssured/maven.yml?branch=main)](https://github.com/erdoganp/backend-test-with-RestAssured/actions)  
-[![Allure Report](https://img.shields.io/badge/Allure-Report-blue)](target/allure-report/index.html)  
-
 ---
 
 ## Project Overview
@@ -62,31 +59,48 @@ backend-test-with-RestAssured/
 
 ---
 
-## POJO Examples
+### Running Test Locally
 
-### Request POJO (`ProductRequest.java`)
-```java
-@Data
-public class CreateProductRequest {
-    private String title;
-    private double price;
-    private String description;
-    private String category;
-}
+1. Clone the repository
+ git clone https://github.com/erdoganp/backend-test-with-RestAssured.git
+cd backend-test-with-RestAssured
+
+2.Run test using Maven
+mvn clean test
+---
 
 
+### CI/CD 
+
+## Github Action Workflow
+
+* Automatically runs tests on push / pull requests
+
+* Generates JUnit reports
+
+name: Maven Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+      - name: Run Maven tests
+        run: mvn clean test
+      - name: Publish Allure Report
+        run: |
+          mvn allure:serve
 
 
-### Request POJO (`ProductResponse.java`)
-```java
-@Data
-public class CreateProductRequest {
-    private int id;
-    private String title;
-    private double price;
-    private String description;
-    private String category;
-}
+### Author
+## Erdoğan Paçacı – Backend Test Automation Enthusiast
+
 
 
 
