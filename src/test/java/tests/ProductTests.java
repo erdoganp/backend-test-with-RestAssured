@@ -81,5 +81,40 @@ public class ProductTests extends BaseTest {
 
     }
 
+    @Test
+    void updateProductPositiveTest() {
+        int productId = 1;
+        ProductRequest request = new ProductRequest();
+
+
+        request.setTitle("Yeni Ürün2");
+        request.setDescription("Test için oluşturuldu2");
+        request.setPrice(3000);
+        request.setCategory("mekanik");
+
+        Response response = client.updateProduct(productId,request);
+        JsonPath jsonPath= response.jsonPath();
+
+        assertNotNull(jsonPath, "Response null olamaz");
+        assertNotNull(jsonPath.getString("title"), "Title boş olamaz");
+        assertTrue(jsonPath.getFloat("price")> 0, "Price 0’dan büyük olmalı");
+        assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
+        assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
+    }
+    @Test
+    void  deleteProductPositiveTest() {
+        int productId = 1;
+        Response response = client.deleteProduct(productId);
+
+        JsonPath jsonPath= response.jsonPath();
+        assertNotNull(jsonPath, "Response null olamaz");
+        assertEquals(response.getStatusCode(),200,"Status code");
+        assertNotNull(jsonPath.getString("title"), "Title boş olamaz");
+        assertTrue(jsonPath.getFloat("price")> 0, "Price 0’dan büyük olmalı");
+        assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
+        assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
+        assertEquals(jsonPath.getString("isDeleted"),"true");
+    }
+
     }
 

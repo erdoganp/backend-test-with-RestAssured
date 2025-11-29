@@ -17,6 +17,7 @@ public class ProductClient {
                 .when()
                 .get("/products/{id}")
                 .then()
+                .log().all()
                 .statusCode(200)
                 .extract()
                 .response();
@@ -30,6 +31,7 @@ public class ProductClient {
                         .when()
                         .get("/products/{id}")
                         .then()
+                        .log().all()
                         .body(matchesJsonSchemaInClasspath("schemas/getProductSchema.json"))
                         .extract()
                         .response();
@@ -44,10 +46,38 @@ public class ProductClient {
                 .when()
                 .post("/products/add")
                 .then()
+                .log().all()
                 .statusCode(201)
                 .extract()
                 .response();
 
+    }
+
+    public Response updateProduct(int id, ProductRequest request) {
+            return  given()
+                    .pathParam("id", id)
+                    .body(request)
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .put("/products/{id}")
+                    .then()
+                    .log().all()
+                    .statusCode(200)
+                    .extract()
+                    .response();
+    }
+
+    public Response deleteProduct(int id) {
+
+        return given()
+                .pathParam("id", id)
+                .when()
+                .delete("/products/{id}")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
     }
 }
 
