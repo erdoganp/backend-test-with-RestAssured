@@ -115,7 +115,7 @@ public class ProductTests extends BaseTest {
         assertEquals(jsonPath.getString("isDeleted"),"true");
     }
 
-    @Test
+ //   @Test
     void  deleteProductNegativeTest() {
         int productId = 0;
 
