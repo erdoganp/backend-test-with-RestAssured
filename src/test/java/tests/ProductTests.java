@@ -32,10 +32,9 @@ public class ProductTests extends BaseTest {
     }
 
     // Negatif
-   // @Test
+   //@Test
     void getProductByIdNegativeTest() {
-        int productId = 99999;
-
+        int productId = -11;
         Response response = client.getProductById(productId);
         assertEquals(response.getStatusCode(),404,"Status code");
 
@@ -114,6 +113,23 @@ public class ProductTests extends BaseTest {
         assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
         assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
         assertEquals(jsonPath.getString("isDeleted"),"true");
+    }
+
+    @Test
+    void  deleteProductNegativeTest() {
+        int productId = 0;
+
+        try{
+            Response response = client.deleteProduct(productId);
+            JsonPath jsonPath= response.jsonPath();
+            assertEquals(response.getStatusCode(),404,"Status code");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
     }
 
     }

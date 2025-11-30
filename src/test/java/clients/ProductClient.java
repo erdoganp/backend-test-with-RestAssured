@@ -17,24 +17,22 @@ public class ProductClient {
                 .when()
                 .get("/products/{id}")
                 .then()
-                .log().all()
                 .statusCode(200)
+                .log().all()
                 .extract()
                 .response();
     }
 
     public Response getProductForSchemaValidation(int id) {
-
-        return
-                given()
-                        .pathParam("id", id)
-                        .when()
-                        .get("/products/{id}")
-                        .then()
-                        .log().all()
-                        .body(matchesJsonSchemaInClasspath("schemas/getProductSchema.json"))
-                        .extract()
-                        .response();
+        return given()
+                .pathParam("id", id)
+                .when()
+                .get("/products/{id}")
+                .then()
+                .log().all()
+                .body(matchesJsonSchemaInClasspath("schemas/getProductSchema.json"))
+                .extract()
+                .response();
 
 
     }

@@ -36,4 +36,15 @@ public class AuthLoginTest extends BaseTest {
 
 
     }
+    @Test
+    void loginNegativeTest(){
+        Map<String, String> credentials = new HashMap<>();
+        credentials.put("username", "emisdfsdflys");
+        credentials.put("password", "emisfdflyspass");
+
+
+        Response response= authClient.getAuthLogin(credentials);
+
+        assertEquals(response.statusCode(),400, "Invalid credentials");
+    }
 }
