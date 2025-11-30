@@ -1,5 +1,6 @@
 package clients;
 
+import base.BaseTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import models.ProductRequest;
@@ -8,7 +9,7 @@ import models.ProductResponse;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class ProductClient {
+public class ProductClient{
 
     public Response getProductById(int id) {
         return given()

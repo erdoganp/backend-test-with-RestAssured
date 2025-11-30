@@ -7,10 +7,13 @@ import io.restassured.response.Response;
 import models.ProductRequest;
 import models.ProductResponse;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Execution(ExecutionMode.CONCURRENT)
 public class ProductTests extends BaseTest {
 
     private final ProductClient client = new ProductClient();
