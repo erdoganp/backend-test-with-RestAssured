@@ -97,6 +97,11 @@ jobs:
         run: |
           mvn allure:serve
 
+![img_1.png](img_1.png)
+
+
+## Allure Report
+![img.png](img.png)
 
 ### Author
 ## Erdoğan Paçacı – Backend Test Automation Enthusiast
