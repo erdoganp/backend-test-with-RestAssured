@@ -39,8 +39,8 @@ public class AuthLoginTest extends BaseTest {
     @Test
     void loginNegativeTest(){
         Map<String, String> credentials = new HashMap<>();
-        credentials.put("username", "emisdfsdflys");
-        credentials.put("password", "emisfdflyspass");
+        credentials.put("username", "emilysbad");
+        credentials.put("password", "emilyspassbad");
 
 
         Response response= authClient.getAuthLogin(credentials);
