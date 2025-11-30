@@ -10,7 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
+
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Execution(ExecutionMode.CONCURRENT)
@@ -67,6 +70,18 @@ public class ProductTests extends BaseTest {
     }
 
     @Test
+    void createProductNegativeTest() {
+        given()
+                .when()
+                .post("/products/a")
+                .then()
+                .log().all()
+                .statusCode(415)
+                .body("message",equalTo("unsupported charset \"ISO-8859-1\""));
+
+    }
+
+    @Test
     void getSchemeValidationTest(){
         int productId = 1;
 
@@ -116,21 +131,9 @@ public class ProductTests extends BaseTest {
         assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
         assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
         assertEquals(jsonPath.getString("isDeleted"),"true");
-    }
+    
 
-   // @Test
-    void  deleteProductNegativeTest() {
-        int productId = 0;
-
-             Response response = client.deleteProduct(productId);
-
-            JsonPath jsonPath= response.jsonPath();
-            assertEquals(response.getStatusCode(),404,"Status code");
-
-
-
-
-    }
+   }
 
     }
 

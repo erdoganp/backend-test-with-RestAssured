@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Repo'yu çek
+      # Repo'yu çek
       - name: Checkout
         uses: actions/checkout@v3
 
-      # 2️⃣ JDK kur
+      # JDK kur
       - name: Set up Java + Maven
         uses: actions/setup-java@v3
         with:
@@ -24,11 +24,11 @@ jobs:
           cache: maven
 
 
-      # 4️⃣ Maven testleri çalıştır
+      # Maven testleri çalıştır
       - name: Run Tests
         run: mvn clean test
 
-      # 5️⃣ Allure sonuçlarını artifact olarak yükle
+      # Allure sonuçlarını artifact olarak yükle
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
