@@ -115,18 +115,15 @@ public class ProductTests extends BaseTest {
         assertEquals(jsonPath.getString("isDeleted"),"true");
     }
 
- //   @Test
+   // @Test
     void  deleteProductNegativeTest() {
         int productId = 0;
 
-        try{
-            Response response = client.deleteProduct(productId);
+             Response response = client.deleteProduct(productId);
+
             JsonPath jsonPath= response.jsonPath();
             assertEquals(response.getStatusCode(),404,"Status code");
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
 
 
