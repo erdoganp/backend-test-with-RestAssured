@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Execution(ExecutionMode.CONCURRENT)
-public class ProductTestParallel extends BaseTest {
+public class ProductParallelTest extends BaseTest {
 
     @Test
     public void TestParallel1(){
