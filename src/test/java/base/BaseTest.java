@@ -2,9 +2,8 @@ package base;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.config.FailureConfig;
 import io.restassured.config.HttpClientConfig;
-import io.restassured.parsing.Parser;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -15,6 +14,7 @@ public class BaseTest {
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = "https://dummyjson.com";
+
     }
 
     protected RequestSpecification getRequestSpec() {

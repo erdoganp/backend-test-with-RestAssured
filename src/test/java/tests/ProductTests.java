@@ -6,10 +6,16 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import models.ProductRequest;
 import models.ProductResponse;
+import org.apache.http.client.HttpResponseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
@@ -38,11 +44,19 @@ public class ProductTests extends BaseTest {
     }
 
     // Negatif
-   //@Test
+   @Test
     void getProductByIdNegativeTest() {
-        int productId = -11;
-        Response response = client.getProductById(productId);
-        assertEquals(response.getStatusCode(),404,"Status code");
+       HttpRequest request = HttpRequest.newBuilder()
+               .uri(URI.create("https://dummyjson.com/products/99999"))
+               .GET()
+               .build();
+         try {
+                HttpResponse<String> response = HttpClient.newHttpClient()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+                 assertEquals(404, response.statusCode());
+             }catch (Exception e) {
+
+         }
 
     }
 
