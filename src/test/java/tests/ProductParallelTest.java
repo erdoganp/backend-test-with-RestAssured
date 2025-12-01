@@ -7,6 +7,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 @Execution(ExecutionMode.CONCURRENT)
 public class ProductParallelTest extends BaseTest {
@@ -33,7 +34,9 @@ public class ProductParallelTest extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("id",equalTo(2));
+                .body("id",equalTo(2))
+                .body("price" ,greaterThanOrEqualTo(1F));
+
 
     }
 }

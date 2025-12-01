@@ -131,7 +131,7 @@ public class ProductTests extends BaseTest {
         assertNotNull(jsonPath.getString("description"), "Description boş olamaz");
         assertFalse(jsonPath.getString("category").isEmpty(), "Category boş olamaz");
         assertEquals(jsonPath.getString("isDeleted"),"true");
-    
+
 
    }
 

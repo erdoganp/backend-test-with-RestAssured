@@ -103,6 +103,9 @@ jobs:
 ## Allure Report
 ![img.png](img.png)
 
+## Dockerize
+![img_3.png](img_3.png)
+
 ### Author
 ## Erdoğan Paçacı – Backend Test Automation Enthusiast
 
