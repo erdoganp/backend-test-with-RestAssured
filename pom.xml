@@ -72,6 +72,20 @@
                 <systemPropertyVariables>
                     <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                 </systemPropertyVariables>
+                <properties>
+                    <property>
+                        <name>junit.jupiter.execution.parallel.enabled</name>
+                        <value>true</value>
+                    </property>
+                    <property>
+                        <name>junit.jupiter.execution.parallel.mode.default</name>
+                        <value>concurrent</value>
+                    </property>
+                    <property>
+                        <name>junit.jupiter.execution.parallel.mode.classes.default</name>
+                        <value>concurrent</value>
+                    </property>
+                </properties>
                 </configuration>
             </plugin>
         </plugins>
